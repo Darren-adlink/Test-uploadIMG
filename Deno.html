@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 視覺效果構成元素</title>
+    <style>
+        /* 引入思源黑體網路字型，讓中文字更好看 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+
+        /* 整體頁面樣式 */
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #1a1a2e; /* 深藍紫色背景 */
+            color: #e0e0e0; /* 淺灰色文字 */
+            line-height: 1.7;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        /* 主要容器，將內容集中 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 主標題 */
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(159, 168, 218, 0.5); /* 標題發光效果 */
+        }
+
+        /* 卡片式佈局容器 */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* 響應式網格佈局 */
+            gap: 30px; /* 卡片間距 */
+        }
+
+        /* 卡片本身樣式 */
+        .card {
+            background-color: #1f1f3a; /* 比背景稍亮的卡片顏色 */
+            border: 1px solid #4a4a70; /* 邊框顏色 */
+            border-radius: 12px; /* 圓角 */
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* 立體陰影 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* 滑鼠懸停動畫 */
+        }
+        
+        .card:hover {
+            transform: translateY(-10px); /* 滑鼠懸停時卡片上浮 */
+            box-shadow: 0 12px 35px rgba(121, 134, 203, 0.3);
+        }
+
+        /* 卡片內的主標題 (H2) */
+        .card h2 {
+            color: #9fa8da; /* 標題顏色 */
+            border-bottom: 2px solid #4a4a70;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        /* 卡片內的次級標題 (H3) */
+        .card h3 {
+            color: #7986cb;
+            font-size: 1.2em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        /* 列表樣式 */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            background-color: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 4px solid #7986cb; /* 左側的強調線 */
+            transition: background-color 0.3s ease;
+        }
+        
+        li:hover {
+            background-color: rgba(121, 134, 203, 0.2);
+        }
+        
+        /* 巢狀列表的縮排 */
+        li ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        /* 用於標示程式碼或參數的樣式 */
+        code {
+            color: #ffab40; /* 亮橘色 */
+            background-color: rgba(255, 171, 64, 0.1);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>3D 視覺效果構成元素深度解析</h1>
+
+        <div class="card-container">
+            
+            <div class="card">
+                <h2>1. 3D 結構與模型 (場景建構)</h2>
+                
+                <h3>空間基礎</h3>
+                <ul>
+                    <li><strong>地板 (Floor)</strong>
+                        <ul>
+                            <li>幾何體: <code>平面幾何體 (PlaneGeometry)</code></li>
+                            <li>材質: <code>標準網格材質 (MeshStandardMaterial)</code></li>
+                            <li>可調參數: 尺寸、顏色、粗糙度、金屬感、紋理貼圖</li>
+                        </ul>
+                    </li>
+                    <li><strong>牆壁 (Walls)</strong>
+                        <ul>
+                            <li>幾何體: <code>立方體幾何體 (BoxGeometry)</code></li>
+                            <li>可調參數: 尺寸 (寬/高/深)、顏色、貼圖</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>互動元件</h3>
+                <ul>
+                    <li><strong>門 (Doors)</strong>
+                        <ul>
+                            <li>結構: <code>物件群組 (Group)</code>，包含門板與樞紐點</li>
+                            <li>動畫控制: 改變 <code>Y軸旋轉角度 (rotation.y)</code></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>核心角色</h3>
+                <ul>
+                    <li><strong>來源</strong>
+                        <ul>
+                            <li>外部 <code>3D模型檔案 (.gltf, .glb)</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>動畫</strong>
+                        <ul>
+                            <li>透過程式觸發模型內建的 <code>動畫片段 (Animation Clips)</code></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>2. 攝影機與視角 (鏡頭語言)</h2>
+                
+                <h3>類型</h3>
+                <ul>
+                    <li><code>透視攝影機 (PerspectiveCamera)</code> (模擬人眼視覺)</li>
+                </ul>
+                
+                <h3>核心參數</h3>
+                <ul>
+                    <li><strong>位置 (Position):</strong> <code>(x, y, z)</code> 座標，決定擺放位置</li>
+                    <li><strong>目標 (LookAt / Target):</strong> <code>(x, y, z)</code> 座標，決定鏡頭朝向焦點</li>
+                    <li><strong>視野 (Field of View - FOV):</strong> 角度值，決定鏡頭廣角程度</li>
+                    <li><strong>高寬比 (Aspect Ratio):</strong> <code>寬度 / 高度</code>，防止畫面變形</li>
+                    <li><strong>裁切面 (Clipping Plane):</strong> <code>近 (Near)</code> 與 <code>遠 (Far)</code> 的距離</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>3. 光影與氛圍 (燈光設計)</h2>
+                
+                <h3>基礎光源 (提升整體亮度與自然感)</h3>
+                <ul>
+                    <li><strong>環境光 (AmbientLight)</strong>
+                        <ul>
+                            <li>作用: 提供均勻、無方向的全域光</li>
+                            <li>參數: <code>顏色 (color)</code>, <code>強度 (intensity)</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>半球光 (HemisphereLight)</strong>
+                        <ul>
+                            <li>作用: 模擬天空與地面的反光</li>
+                            <li>參數: <code>天空顏色</code>, <code>地面顏色</code>, <code>強度</code></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>主要光源 (塑造立體感與陰影)</h3>
+                <ul>
+                    <li><strong>方向光 (DirectionalLight)</strong>
+                        <ul>
+                            <li>作用: 模擬強光源 (如太陽)，產生平行光並投射陰影</li>
+                            <li>參數: <code>顏色</code>, <code>強度</code>, <code>位置 (position)</code></li>
+                            <li>陰影: 需手動啟用 (<code>castShadow</code>) 並設定品質</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
